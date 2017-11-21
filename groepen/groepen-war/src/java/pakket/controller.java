@@ -5,10 +5,14 @@ package pakket;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -27,19 +31,17 @@ public class controller extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet controller</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet controller at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        switch(request.getParameter("oorsprong")){
+        case("making friends"): makeFriend(request,response);
+        case("making enemies"): makeEnemy(request,response);
+        
+        
         }
+    }
+    
+    private void forward(String name, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        RequestDispatcher view = request.getRequestDispatcher(name);
+           view.forward(request,response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -80,5 +82,17 @@ public class controller extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private void makeFriend(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession sessie = request.getSession();
+        sessie.setAttribute("reden", request.getParameter("vriend"));
+        forward("selector.jsp",request,response);
+    }
+
+    private void makeEnemy(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession sessie = request.getSession();
+        sessie.setAttribute("reden", request.getParameter("vijand"));
+        forward("selector.jsp",request,response);
+    }
 
 }
