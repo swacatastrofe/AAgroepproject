@@ -46,6 +46,13 @@ public class controller extends HttpServlet {
                 request.setAttribute("groepen",groepen);
                 forward("docentenoverzicht.jsp",request,response);
             }
+            if(dstatus.equals("voegGroepToe"))
+            {
+                dboon.voegGroepToe();
+                List groepen = dboon.getGroepen();
+                request.setAttribute("groepen",groepen);
+                forward("docentenoverzicht.jsp",request,response);
+            }
             else
             {
                 forward("index.html",request,response);
