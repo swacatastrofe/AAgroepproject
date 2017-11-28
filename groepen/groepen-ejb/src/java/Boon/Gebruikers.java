@@ -28,10 +28,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "GEBRUIKERS")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Gebruikers.findAll", query = "SELECT g FROM Gebruikers g")
-    , @NamedQuery(name = "Gebruikers.findByGnr", query = "SELECT g FROM Gebruikers g WHERE g.gnr = :gnr")
-    , @NamedQuery(name = "Gebruikers.findByGebnaam", query = "SELECT g FROM Gebruikers g WHERE g.gebnaam = :gebnaam")
-    , @NamedQuery(name = "Gebruikers.findByWw", query = "SELECT g FROM Gebruikers g WHERE g.ww = :ww")})
+    @NamedQuery(name = "Gebruikers.findAll", query = "SELECT g FROM Gebruikers g"), 
+    @NamedQuery(name = "Gebruikers.findByGnr", query = "SELECT g FROM Gebruikers g WHERE g.gnr = :gnr"), 
+    @NamedQuery(name = "Gebruikers.findByGebnaam", query = "SELECT g FROM Gebruikers g WHERE g.gebnaam = :gebnaam"), 
+    @NamedQuery(name = "Gebruikers.findByWw", query = "SELECT g FROM Gebruikers g WHERE g.ww = :ww"),
+    @NamedQuery(name = "Gebruikers.getNamesStuds", query = "SELECT g.gebnaam FROM Gebruikers g WHERE g.rollen = (SELECT r from Rollen r where r.rnaam = 'student')"),
+    @NamedQuery(name = "Gebruikers.findName", query = "SELECT g.gebnaam FROM Gebruikers g WHERE g.rollen = (SELECT r from Rollen r where r.rnaam = 'student') and g.gebnaam like '%:naamfrag%'")})
 public class Gebruikers implements Serializable {
 
     private static final long serialVersionUID = 1L;
