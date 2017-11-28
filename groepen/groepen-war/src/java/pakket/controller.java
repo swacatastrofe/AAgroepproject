@@ -3,12 +3,10 @@
  */
 package pakket;
 
-import Boon.DatabankRemote;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -21,7 +19,7 @@ import javax.servlet.http.HttpSession;
  * @author Wouter
  */
 public class controller extends HttpServlet {
-    @EJB private DatabankRemote dbsb;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -86,7 +84,7 @@ public class controller extends HttpServlet {
     }// </editor-fold>
 
     private void makeFriend(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession sessie = request.getSession(); 
+        HttpSession sessie = request.getSession();
         sessie.setAttribute("reden", request.getParameter("vriend"));
         forward("selector.jsp",request,response);
     }
