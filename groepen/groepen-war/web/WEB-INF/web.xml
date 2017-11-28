@@ -13,4 +13,33 @@
             30
         </session-timeout>
     </session-config>
+    <security-constraint>
+        <display-name>Constraint1</display-name>
+        <web-resource-collection>
+            <web-resource-name>generalcontraint</web-resource-name>
+            <description/>
+            <url-pattern>/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <description/>
+            <role-name>student</role-name>
+            <role-name>docent</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <realm-name>groepprojectrealm</realm-name>
+        <form-login-config>
+            <form-login-page>/login.jsp</form-login-page>
+            <form-error-page>/loginerrror.jsp</form-error-page>
+        </form-login-config>
+    </login-config>
+    <security-role>
+        <description>de studenten die willen beslissen met wie ze in de groep zitten</description>
+        <role-name>student</role-name>
+    </security-role>
+    <security-role>
+        <description>gaan de groepen samenstellen en de indeling finaliseren</description>
+        <role-name>docent</role-name>
+    </security-role>
 </web-app>
