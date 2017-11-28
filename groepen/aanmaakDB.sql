@@ -23,10 +23,10 @@ CREATE TABLE gebruikers (
 );
 
 CREATE TABLE rollen (
-    rid int,
+    gnr int,
     rnaam VARCHAR2 (20),
-    PRIMARY KEY (rid),
-    FOREIGN KEY (rid) REFERENCES gebruikers (gnr)
+    PRIMARY KEY (gnr),
+    FOREIGN KEY (gnr) REFERENCES gebruikers (gnr)
 );
 
 CREATE TABLE groepen (
