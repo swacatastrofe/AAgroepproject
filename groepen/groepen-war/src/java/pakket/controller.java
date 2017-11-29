@@ -3,25 +3,21 @@
  */
 package pakket;
 
-import Boon.DatabankRemote;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import bonen.docentenboonRemote;
+import java.io.*;
+import java.util.List;
+import java.util.logging.*;
 import javax.ejb.EJB;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.*;
+import javax.servlet.http.*;
 
 /**
  *
  * @author Wouter
  */
 public class controller extends HttpServlet {
-    @EJB private DatabankRemote dbsb;
+    @EJB private docentenboonRemote dboon;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -33,12 +29,36 @@ public class controller extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        switch(request.getParameter("oorsprong")){
-        case("making friends"): makeFriend(request,response);
-        case("making enemies"): makeEnemy(request,response);
-        
-        
+                response.setContentType("text/html;charset=UTF-8");
+        if(request.isUserInRole("student"))
+        {
+            switch(request.getParameter("oorsprong")){
+            case("making friends"): makeFriend(request,response);
+            case("making enemies"): makeEnemy(request,response);
+            }
         }
+        else
+        {
+            String dstatus = request.getParameter("dtoestand");
+            if (dstatus==null)
+            {
+                List groepen = dboon.getGroepen();
+                request.setAttribute("groepen",groepen);
+                forward("docentenoverzicht.jsp",request,response);
+            }
+            if(dstatus.equals("voegGroepToe"))
+            {
+                dboon.voegGroepToe();
+                List groepen = dboon.getGroepen();
+                request.setAttribute("groepen",groepen);
+                forward("docentenoverzicht.jsp",request,response);
+            }
+            else
+            {
+                forward("index.html",request,response);
+            }
+        }
+        
     }
     
     private void forward(String name, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
@@ -86,7 +106,7 @@ public class controller extends HttpServlet {
     }// </editor-fold>
 
     private void makeFriend(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession sessie = request.getSession(); 
+        HttpSession sessie = request.getSession();
         sessie.setAttribute("reden", request.getParameter("vriend"));
         forward("selector.jsp",request,response);
     }
