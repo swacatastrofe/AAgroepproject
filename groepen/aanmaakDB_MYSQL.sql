@@ -15,19 +15,18 @@ DROP TABlE groepen;
 DROP TABLE gebruikers;
 DROP TABLE rollen;
 
-CREATE TABLE rollen (
-    rid int,
-    rnaam VARCHAR (20),
-    PRIMARY KEY (rid)
-);
-
 CREATE TABLE gebruikers (
     gnr int,
     gebnaam VARCHAR (50),
     ww VARCHAR (20),
-    rol int,
+    PRIMARY KEY (gnr)
+);
+
+CREATE TABLE rollen (
+    gnr int,
+    rnaam VARCHAR (20),
     PRIMARY KEY (gnr),
-    FOREIGN KEY (rol) REFERENCES rollen (rid)
+    FOREIGN KEY (gnr) REFERENCES gebruikers (gnr)
 );
 
 CREATE TABLE groepen (
@@ -59,12 +58,14 @@ CREATE TABLE wel (
     FOREIGN KEY (slachtoffer) REFERENCES studenten (snr)
 );
 
+INSERT INTO gebruikers VALUES(1, 'Herman Crauwels','docent');
+INSERT INTO gebruikers VALUES(2, 'student1','student');
+INSERT INTO gebruikers VALUES(3, 'student2','student');
+INSERT INTO gebruikers VALUES (4, 'student3','student');
 INSERT INTO rollen VALUES (1, 'docent');
 INSERT INTO rollen VALUES(2, 'student');
-INSERT INTO gebruikers VALUES(1, 'Herman Crauwels','docent',1);
-INSERT INTO gebruikers VALUES(2, 'student1','student',2);
-INSERT INTO gebruikers VALUES(3, 'student2','student',2);
-INSERT INTO gebruikers VALUES (4, 'student3','student',2);
+INSERT INTO rollen VALUES(3, 'student');
+INSERT INTO rollen VALUES(4, 'student');
 INSERT INTO groepen  VALUES (0, 'null',0);
 INSERT INTO groepen VALUES (1, 'groep1',0);
 INSERT INTO studenten VALUES (2,0);
