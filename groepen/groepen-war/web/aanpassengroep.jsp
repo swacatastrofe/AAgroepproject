@@ -33,6 +33,7 @@
                 </c:forEach>
             </select>
             <input type="hidden" name="dtoestand" value="verwijderStudent"/>
+            <input type="hidden" name="groepsnr" value="${requestScope.groepsnr}" />
             <input type="submit" name="Volgende" value="Verwijder de geslecteerde student uit de groep"/>
         </form>
         <form method="post" action="<c:url value='controller' />" >
