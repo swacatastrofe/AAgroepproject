@@ -68,6 +68,6 @@ INSERT INTO rollen VALUES(3, 'student');
 INSERT INTO rollen VALUES(4, 'student');
 INSERT INTO groepen  VALUES (0, 'null',0);
 INSERT INTO groepen VALUES (1, 'groep1',0);
-INSERT INTO studenten VALUES (2,0);
+INSERT INTO studenten VALUES (2,1);
 INSERT INTO studenten VALUES (3,0);
 INSERT INTO studenten VALUES (4,0);

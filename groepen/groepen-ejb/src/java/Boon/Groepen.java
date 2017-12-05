@@ -34,7 +34,8 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Groepen.findByGid", query = "SELECT g FROM Groepen g WHERE g.gid = :gid")
     , @NamedQuery(name = "Groepen.findByGnaam", query = "SELECT g FROM Groepen g WHERE g.gnaam = :gnaam")
     , @NamedQuery(name = "Groepen.findByFinaal", query = "SELECT g FROM Groepen g WHERE g.finaal = :finaal")
-    , @NamedQuery(name = "Groepen.findGroups", query = "SELECT g FROM Groepen g WHERE g.gid >:gid")})
+    , @NamedQuery(name = "Groepen.findGroupNr", query = "SELECT g.gid FROM Groepen g WHERE g.gid >:gid")
+    , @NamedQuery(name = "Groepen.findBigNr", query = "SELECT max(g.gid) FROM Groepen g")})
 public class Groepen implements Serializable {
 
     private static final long serialVersionUID = 1L;
