@@ -22,11 +22,12 @@
                 </c:forEach>
             </select>
             <input type="hidden" name="dtoestand" value="voegStudentToe"/>
+            <input type="hidden" name="groepsnr" value="${requestScope.groepsnr}" />
             <input type="submit" name="Volgende" value="Voeg de geslecteerde student toe"/>
         </form>
         <h2> Leden uit de groep verwijderen </h2>
         <form method="post" action="<c:url value='controller' />" >
-            <select name="toevoegen">
+            <select name="verwijderen">
                 <c:forEach var="student" items="${requestScope.studentenInGroep}">
                     <option value="${student}">${student}</option>
                 </c:forEach>

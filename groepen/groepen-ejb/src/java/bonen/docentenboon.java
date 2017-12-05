@@ -7,6 +7,7 @@ package bonen;
 
 
 import Boon.Groepen;
+import Boon.Studenten;
 import java.math.*;
 import java.util.*;
 import javax.ejb.Stateless;
@@ -61,5 +62,15 @@ public class docentenboon implements docentenboonRemote {
             namen.add(naam);
         }
         return namen;
+    }
+    
+    public void voegStudentToeAanGroep(String gid, String naam)
+    {
+        BigDecimal groep = new BigDecimal(gid);
+        Groepen gr =(Groepen) em.createNamedQuery("Groepen.findByGid").setParameter("gid",groep).getSingleResult();
+        BigDecimal snr = (BigDecimal) em.createNamedQuery("Gebruikers.findGnrByGebnaam").setParameter("gebnaam",naam).getSingleResult();
+        Studenten s = (Studenten) em.createNamedQuery("Studenten.findBySnr").setParameter("snr",snr).getSingleResult();
+        s.setGid(gr);
+        em.persist(s);
     }
 }

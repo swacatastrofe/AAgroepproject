@@ -32,7 +32,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Gebruikers.findByGnr", query = "SELECT g FROM Gebruikers g WHERE g.gnr = :gnr")
     , @NamedQuery(name = "Gebruikers.findByGebnaam", query = "SELECT g FROM Gebruikers g WHERE g.gebnaam = :gebnaam")
     , @NamedQuery(name = "Gebruikers.findByWw", query = "SELECT g FROM Gebruikers g WHERE g.ww = :ww")
-    , @NamedQuery(name = "Gebruikers.findNamebyGnr", query = "SELECT g.gebnaam FROM Gebruikers g where g.gnr = :gnr")})
+    , @NamedQuery(name = "Gebruikers.findNamebyGnr", query = "SELECT g.gebnaam FROM Gebruikers g where g.gnr = :gnr")
+    , @NamedQuery(name = "Gebruikers.findGnrByGebnaam", query = "SELECT g.gnr FROM Gebruikers g WHERE g.gebnaam = :gebnaam")})
 public class Gebruikers implements Serializable {
 
     private static final long serialVersionUID = 1L;
