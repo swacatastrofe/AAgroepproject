@@ -32,9 +32,18 @@ public class controller extends HttpServlet {
                 response.setContentType("text/html;charset=UTF-8");
         if(request.isUserInRole("student"))
         {
-            switch(request.getParameter("oorsprong")){
-            case("making friends"): makeFriend(request,response);
-            case("making enemies"): makeEnemy(request,response);
+            try{
+                switch(request.getParameter("oorsprong")){
+                    case("making friends"): 
+                        makeFriend(request,response);
+                        break;
+                    case("making enemies"): 
+                        makeEnemy(request,response);
+                        break;
+                }
+            }
+            catch(NullPointerException e){
+                onthaal(request,response);
             }
         }
         else
@@ -115,6 +124,10 @@ public class controller extends HttpServlet {
         HttpSession sessie = request.getSession();
         sessie.setAttribute("reden", request.getParameter("vijand"));
         forward("selector.jsp",request,response);
+    }
+
+    private void onthaal(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        forward("studentenwelkom.jsp",request,response);
     }
 
 }

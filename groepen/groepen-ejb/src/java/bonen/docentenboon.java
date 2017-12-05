@@ -25,4 +25,21 @@ public class docentenboon implements docentenboonRemote {
         List groepen = em.createNamedQuery("Groepen.findGroups").setParameter("gid",new BigDecimal(0)).getResultList();
         return groepen;
     }
+
+    @Override
+    public void voegGroepToe() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List getStudents() {
+        List studenten = em.createNamedQuery("Gebruikers.getNamesStud").getResultList();
+        return studenten;
+    }
+
+    @Override
+    public List getStudents(String frag) {
+        List studenten = em.createNamedQuery("Gebruikers.findName").setParameter("naamfrag",frag).getResultList();
+        return studenten;
+    }
 }
