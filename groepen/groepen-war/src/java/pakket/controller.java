@@ -46,12 +46,52 @@ public class controller extends HttpServlet {
                 request.setAttribute("groepen",groepen);
                 forward("docentenoverzicht.jsp",request,response);
             }
+            if(dstatus.equals("naarOverzicht"))
+            {
+                List groepen = dboon.getGroepen();
+                request.setAttribute("groepen",groepen);
+                forward("docentenoverzicht.jsp",request,response);
+            }
             if(dstatus.equals("voegGroepToe"))
             {
                 dboon.voegGroepToe();
                 List groepen = dboon.getGroepen();
                 request.setAttribute("groepen",groepen);
                 forward("docentenoverzicht.jsp",request,response);
+            }
+            if(dstatus.equals("pasGroepAan"))
+            {
+                String groepsnr = request.getParameter("groepsnr");
+                List studentenInGroep = dboon.getStudentenInGroep(groepsnr);
+                List studentenZonderGroep = dboon.getStudentenZonderGroep();
+                request.setAttribute("studentenInGroep",studentenInGroep);
+                request.setAttribute("studentenZonderGroep",studentenZonderGroep);
+                request.setAttribute("groepsnr",groepsnr);
+                forward("aanpassengroep.jsp",request,response);
+            }
+            if(dstatus.equals("voegStudentToe"))
+            {
+                String groepsnr = request.getParameter("groepsnr");
+                String student = request.getParameter("toevoegen");
+                dboon.voegStudentToeAanGroep(groepsnr, student);
+                List studentenInGroep = dboon.getStudentenInGroep(groepsnr);
+                List studentenZonderGroep = dboon.getStudentenZonderGroep();
+                request.setAttribute("studentenInGroep",studentenInGroep);
+                request.setAttribute("studentenZonderGroep",studentenZonderGroep);
+                request.setAttribute("groepsnr",groepsnr);
+                forward("aanpassengroep.jsp",request,response);
+            }
+            if(dstatus.equals("verwijderStudent"))
+            {
+                String groepsnr = request.getParameter("groepsnr");
+                String student = request.getParameter("verwijderen");
+                dboon.voegStudentToeAanGroep("0", student);
+                List studentenInGroep = dboon.getStudentenInGroep(groepsnr);
+                List studentenZonderGroep = dboon.getStudentenZonderGroep();
+                request.setAttribute("studentenInGroep",studentenInGroep);
+                request.setAttribute("studentenZonderGroep",studentenZonderGroep);
+                request.setAttribute("groepsnr",groepsnr);
+                forward("aanpassengroep.jsp",request,response);
             }
             else
             {

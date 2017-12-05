@@ -17,21 +17,23 @@
         <h2>Overzicht van de bestaande groepen</h2>
         <table>
             <tr>
-                <th> Groepsnaam </th>
+                <th> Groepsnummer </th>
                 <th> Aanpassen </th>
             </tr>
             <c:forEach var="groepen" items="${requestScope.groepen}">
+                <tr>
                 <td>${groepen}</td>
                 <td>
-                    <form method="post" action="<c:url value='controller.do' />" >
+                    <form method="post" action="<c:url value='controller' />" >
                         <input type="hidden" name="dtoestand" value="pasGroepAan"/>
                         <input type="hidden" name="groepsnr" value="${groepen}"/>
                         <input type="submit" name="Volgende" value="Pas deze groep aan"/>
                     </form>
                 </td>
+                </tr>
             </c:forEach>
         </table>
-        <form method="post" action="<c:url value='controller.do' />" >
+        <form method="post" action="<c:url value='controller' />" >
             <input type="hidden" name="dtoestand" value="voegGroepToe"/>
             <input type="submit" name="Volgende" value="Voeg een groep toe"/>
         </form>
