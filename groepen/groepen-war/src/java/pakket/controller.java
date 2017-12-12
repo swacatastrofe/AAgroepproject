@@ -98,11 +98,19 @@ public class controller extends HttpServlet {
                 request.setAttribute("groepsnr",groepsnr);
                 forward("aanpassengroep.jsp",request,response);
             }
-             if (dstatus.equals("logout"))
-             {
+            if(dstatus.equals("finaliseren"))
+            {
+                String groepsnr = request.getParameter("groepsnr");
+                dboon.finaliseerGroep(groepsnr);
+                List groepen = dboon.getGroepen();
+                request.setAttribute("groepen",groepen);
+                forward("docentenoverzicht.jsp",request,response);
+            }
+            if (dstatus.equals("logout"))
+            {
                 sessie.invalidate();
                 forward("login.jsp",request,response);
-             }
+            }
             else
             {
                 forward("index.html",request,response);
