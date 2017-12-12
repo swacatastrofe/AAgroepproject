@@ -39,6 +39,22 @@ public class docentenboon implements docentenboonRemote {
         em.persist(gr);
     }
     
+    public void finaliseerGroep(String nr){
+        BigDecimal grpnr = new BigDecimal(nr);
+        Groepen gr = (Groepen) em.createNamedQuery("Groepen.findByGid").setParameter("gid",grpnr).getSingleResult();
+        gr.setFinaal(new BigInteger("1"));
+        em.persist(gr);
+    }
+    
+    public String isGroepFinaal (String nr)
+    {
+        BigDecimal grpnr = new BigDecimal(nr);
+        Groepen gr = (Groepen) em.createNamedQuery("Groepen.findByGid").setParameter("gid",grpnr).getSingleResult();
+        BigInteger f = gr.getFinaal();
+        String fin = f.toString();
+        return fin;
+    }
+    
     public List getStudentenInGroep(String gid){
         BigDecimal groep = new BigDecimal(gid);
         Groepen gr =(Groepen) em.createNamedQuery("Groepen.findByGid").setParameter("gid",groep).getSingleResult();

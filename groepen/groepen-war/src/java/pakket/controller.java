@@ -30,11 +30,16 @@ public class controller extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
                 response.setContentType("text/html;charset=UTF-8");
+                HttpSession sessie = request.getSession();
+                
         if(request.isUserInRole("student"))
         {
             switch(request.getParameter("oorsprong")){
             case("making friends"): makeFriend(request,response);
             case("making enemies"): makeEnemy(request,response);
+            case("logout"):
+                sessie.invalidate();
+                forward("login.jsp",request,response);
             }
         }
         else
@@ -92,6 +97,19 @@ public class controller extends HttpServlet {
                 request.setAttribute("studentenZonderGroep",studentenZonderGroep);
                 request.setAttribute("groepsnr",groepsnr);
                 forward("aanpassengroep.jsp",request,response);
+            }
+            if(dstatus.equals("finaliseren"))
+            {
+                String groepsnr = request.getParameter("groepsnr");
+                dboon.finaliseerGroep(groepsnr);
+                List groepen = dboon.getGroepen();
+                request.setAttribute("groepen",groepen);
+                forward("docentenoverzicht.jsp",request,response);
+            }
+            if (dstatus.equals("logout"))
+            {
+                sessie.invalidate();
+                forward("login.jsp",request,response);
             }
             else
             {

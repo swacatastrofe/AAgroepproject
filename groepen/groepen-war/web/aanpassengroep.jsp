@@ -36,9 +36,19 @@
             <input type="hidden" name="groepsnr" value="${requestScope.groepsnr}" />
             <input type="submit" name="Volgende" value="Verwijder de geslecteerde student uit de groep"/>
         </form>
+        <h2> Finaliseer de samenstelling van de groep</h2>
+        <form method="post" action="<c:url value='controller' />" >
+            <input type="hidden" name="dtoestand" value="finaliseren"/>
+            <input type="hidden" name="groepsnr" value="${requestScope.groepsnr}" />
+            <input type="submit" name="Volgende" value="Samenstelling finaliseren"/>
+        </form>
         <form method="post" action="<c:url value='controller' />" >
             <input type="hidden" name="dtoestand" value="naarOverzicht"/>
             <input type="submit" name="Volgende" value="Ga terug naar de overzichts pagina"/>
         </form>
     </body>
+
+    <footer>
+        <%@include file="footer.jspf" %>
+    </footer>
 </html>

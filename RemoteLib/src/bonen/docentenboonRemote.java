@@ -16,6 +16,8 @@ import javax.ejb.Remote;
 public interface docentenboonRemote {
     public List getGroepen ();
     public void voegGroepToe();
+    public void finaliseerGroep(String nr);
+    public String isGroepFinaal (String nr);
     public List getStudentenInGroep(String gid);
     public List getStudentenZonderGroep();
     public void voegStudentToeAanGroep(String gid, String naam);
