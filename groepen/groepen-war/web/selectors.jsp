@@ -14,4 +14,7 @@
     <body>
         <h1>ah, dus u wilt een ${sessionScope.reden} maken</h1>
     </body>
+    <footer>
+        <%@include file="footer.jspf" %>
+    </footer>
 </html>

@@ -38,4 +38,7 @@
             <input type="submit" name="Volgende" value="Voeg een groep toe"/>
         </form>
     </body>
+    <footer>
+        <%@include file="footer.jspf" %>
+    </footer>
 </html>

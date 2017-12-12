@@ -41,4 +41,7 @@
             <input type="submit" name="Volgende" value="Ga terug naar de overzichts pagina"/>
         </form>
     </body>
+    <footer>
+        <%@include file="footer.jspf" %>
+    </footer>
 </html>

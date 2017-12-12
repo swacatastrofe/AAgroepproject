@@ -26,4 +26,7 @@
                 <input type="hidden" name="oorsprong"  value="making enemies"/>
             </form>
     </body>
+    <footer>
+        <%@include file="footer.jspf" %>
+    </footer>
 </html>
