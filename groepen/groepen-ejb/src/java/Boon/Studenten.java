@@ -13,11 +13,10 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -37,6 +36,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Studenten.findSnrByGid", query = "SELECT s.snr FROM Studenten s WHERE s.gid = :gid")})
 public class Studenten implements Serializable {
 
+
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
@@ -44,26 +44,20 @@ public class Studenten implements Serializable {
     @NotNull
     @Column(name = "SNR")
     private BigDecimal snr;
-    @JoinTable(name = "NIET", joinColumns = {
-        @JoinColumn(name = "AANVRAGER", referencedColumnName = "SNR")}, inverseJoinColumns = {
-        @JoinColumn(name = "VRIEND", referencedColumnName = "SNR")})
-    @ManyToMany
-    private Collection<Studenten> studentenCollection;
-    @ManyToMany(mappedBy = "studentenCollection")
-    private Collection<Studenten> studentenCollection1;
-    @JoinTable(name = "WEL", joinColumns = {
-        @JoinColumn(name = "HATER", referencedColumnName = "SNR")}, inverseJoinColumns = {
-        @JoinColumn(name = "SLACHTOFFER", referencedColumnName = "SNR")})
-    @ManyToMany
-    private Collection<Studenten> studentenCollection2;
-    @ManyToMany(mappedBy = "studentenCollection2")
-    private Collection<Studenten> studentenCollection3;
     @JoinColumn(name = "SNR", referencedColumnName = "GNR", insertable = false, updatable = false)
     @OneToOne(optional = false)
     private Gebruikers gebruikers;
     @JoinColumn(name = "GID", referencedColumnName = "GID")
     @ManyToOne
     private Groepen gid;
+    @OneToMany(mappedBy = "slachtoffer")
+    private Collection<Niet> nietCollection;
+    @OneToMany(mappedBy = "hater")
+    private Collection<Niet> nietCollection1;
+    @OneToMany(mappedBy = "vriend")
+    private Collection<Wel> welCollection;
+    @OneToMany(mappedBy = "aanvrager")
+    private Collection<Wel> welCollection1;
 
     public Studenten() {
     }
@@ -80,42 +74,6 @@ public class Studenten implements Serializable {
         this.snr = snr;
     }
 
-    @XmlTransient
-    public Collection<Studenten> getStudentenCollection() {
-        return studentenCollection;
-    }
-
-    public void setStudentenCollection(Collection<Studenten> studentenCollection) {
-        this.studentenCollection = studentenCollection;
-    }
-
-    @XmlTransient
-    public Collection<Studenten> getStudentenCollection1() {
-        return studentenCollection1;
-    }
-
-    public void setStudentenCollection1(Collection<Studenten> studentenCollection1) {
-        this.studentenCollection1 = studentenCollection1;
-    }
-
-    @XmlTransient
-    public Collection<Studenten> getStudentenCollection2() {
-        return studentenCollection2;
-    }
-
-    public void setStudentenCollection2(Collection<Studenten> studentenCollection2) {
-        this.studentenCollection2 = studentenCollection2;
-    }
-
-    @XmlTransient
-    public Collection<Studenten> getStudentenCollection3() {
-        return studentenCollection3;
-    }
-
-    public void setStudentenCollection3(Collection<Studenten> studentenCollection3) {
-        this.studentenCollection3 = studentenCollection3;
-    }
-
     public Gebruikers getGebruikers() {
         return gebruikers;
     }
@@ -130,6 +88,42 @@ public class Studenten implements Serializable {
 
     public void setGid(Groepen gid) {
         this.gid = gid;
+    }
+
+    @XmlTransient
+    public Collection<Niet> getNietCollection() {
+        return nietCollection;
+    }
+
+    public void setNietCollection(Collection<Niet> nietCollection) {
+        this.nietCollection = nietCollection;
+    }
+
+    @XmlTransient
+    public Collection<Niet> getNietCollection1() {
+        return nietCollection1;
+    }
+
+    public void setNietCollection1(Collection<Niet> nietCollection1) {
+        this.nietCollection1 = nietCollection1;
+    }
+
+    @XmlTransient
+    public Collection<Wel> getWelCollection() {
+        return welCollection;
+    }
+
+    public void setWelCollection(Collection<Wel> welCollection) {
+        this.welCollection = welCollection;
+    }
+
+    @XmlTransient
+    public Collection<Wel> getWelCollection1() {
+        return welCollection1;
+    }
+
+    public void setWelCollection1(Collection<Wel> welCollection1) {
+        this.welCollection1 = welCollection1;
     }
 
     @Override
