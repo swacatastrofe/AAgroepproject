@@ -25,6 +25,17 @@
             <input type="hidden" name="groepsnr" value="${requestScope.groepsnr}" />
             <input type="submit" name="Volgende" value="Voeg de geslecteerde student toe"/>
         </form>
+       <h2> Vrienden van leden toevoegen aan de groep </h2>
+        <form method="post" action="<c:url value='controller' />" >
+            <select name="toevoegen">
+                <c:forEach var="student" items="${requestScope.vrienden}">
+                    <option value="${student}">${student}</option>
+                </c:forEach>
+            </select>
+            <input type="hidden" name="dtoestand" value="voegStudentToe"/>
+            <input type="hidden" name="groepsnr" value="${requestScope.groepsnr}" />
+            <input type="submit" name="Volgende" value="Voeg de geslecteerde vriend toe"/>
+        </form>    
         <h2> Leden uit de groep verwijderen </h2>
         <form method="post" action="<c:url value='controller' />" >
             <select name="verwijderen">
