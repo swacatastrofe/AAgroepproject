@@ -80,13 +80,47 @@ public class docentenboon implements docentenboonRemote {
         return namen;
     }
     
+    public List getVrienden (String gid)
+    {
+        //Haal studenten op die in de groep zitten
+        BigDecimal groep = new BigDecimal(gid);
+        Groepen gr =(Groepen) em.createNamedQuery("Groepen.findByGid").setParameter("gid",groep).getSingleResult();
+        List nr = em.createNamedQuery("Studenten.findSnrByGid").setParameter("gid",gr).getResultList();
+        //Haal Studenten zonder groep
+        Groepen g =(Groepen) em.createNamedQuery("Groepen.findByGid").setParameter("gid",new BigDecimal(0)).getSingleResult();
+        List n = em.createNamedQuery("Studenten.findSnrByGid").setParameter("gid",g).getResultList();
+        //Haal vrienden van studenten
+        List vrienden = new ArrayList();
+        for (int i=0; i<nr.size() ;i++)
+        {
+            Studenten s = (Studenten) em.createNamedQuery("Studenten.findBySnr").setParameter("snr",nr.get(i)).getSingleResult();
+            List v = em.createNamedQuery("Wel.findFriends").setParameter("aanvrager",s).getResultList();
+            vrienden.add(v);
+        }
+        List vnaam = new ArrayList();
+        for (int j=0; j<vrienden.size(); j++)
+        {
+            Studenten s = (Studenten) vrienden.get(j);
+            for(int x=0; x<n.size();x++)
+            {
+                if(n.get(x)==s.getSnr())
+                {
+                    //De vriend zit nog niet in een groep
+                    String naam = (String) em.createNamedQuery("Gebruikers.findNamebyGnr").setParameter("gnr",s.getSnr()).getSingleResult();
+                    vnaam.add(naam);
+                }
+            }
+        }
+        return vnaam;
+    }
+    
     public void voegStudentToeAanGroep(String gid, String naam)
     {
         BigDecimal groep = new BigDecimal(gid);
         Groepen gr =(Groepen) em.createNamedQuery("Groepen.findByGid").setParameter("gid",groep).getSingleResult();
         BigDecimal snr = (BigDecimal) em.createNamedQuery("Gebruikers.findGnrByGebnaam").setParameter("gebnaam",naam).getSingleResult();
         Studenten s = (Studenten) em.createNamedQuery("Studenten.findBySnr").setParameter("snr",snr).getSingleResult();
-        s.setGid(gr);
+         s.setGid(gr);
         em.persist(s);
     }
 }
