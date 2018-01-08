@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Wel.findAll", query = "SELECT w FROM Wel w")
     , @NamedQuery(name = "Wel.findByWnr", query = "SELECT w FROM Wel w WHERE w.wnr = :wnr")
-    , @NamedQuery(name = "Wel.findFriends", query="SELECT w.vriend.gebruikers.gebnaam FROM Wel w WHERE w.aanvrager= :aanvrager")})
+    , @NamedQuery(name = "Wel.findFriends", query="SELECT w.vriend.snr FROM Wel w WHERE w.aanvrager= :aanvrager")})
 public class Wel implements Serializable {
 
     private static final long serialVersionUID = 1L;
