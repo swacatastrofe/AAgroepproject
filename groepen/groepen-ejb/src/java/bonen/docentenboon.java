@@ -82,10 +82,26 @@ public class docentenboon implements docentenboonRemote {
         {
             Studenten s = (Studenten) em.createNamedQuery("Studenten.findBySnr").setParameter("snr",nr.get(i)).getSingleResult();
             List v = em.createNamedQuery("Wel.findFriends").setParameter("aanvrager",s).getResultList();
-            vrienden.add(v);
+            if(v.size()>0)
+            {
+                vrienden.add(v);
+            }    
         }
-        List namen = verwijderHaakjes(vrienden);
-        return namen;
+        List zonderHaakjes = verwijderHaakjes(vrienden);
+        List res = new ArrayList();
+        for (int i=0; i<zonderHaakjes.size(); i++)
+        {
+            String n = zonderHaakjes.get(i).toString();
+            Groepen g =(Groepen) em.createNamedQuery("Groepen.findByGid").setParameter("gid",new BigDecimal(0)).getSingleResult();
+            boolean test = lidGroep(n,g);
+            if (test)
+            {
+                BigDecimal snr = new BigDecimal (n);
+                String naam = (String) em.createNamedQuery("Gebruikers.findNamebyGnr").setParameter("gnr", snr).getSingleResult();
+                res.add(naam);
+            }
+        }
+        return res;
     }
     
     public List getVijanden (String gid)
