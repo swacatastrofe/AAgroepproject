@@ -24,74 +24,74 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author student
  */
 @Entity
-@Table(name = "WEL")
+@Table(name = "NIET")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Wel.findAll", query = "SELECT w FROM Wel w")
-    , @NamedQuery(name = "Wel.findByWnr", query = "SELECT w FROM Wel w WHERE w.wnr = :wnr")
-    , @NamedQuery(name = "Wel.findFriends", query="SELECT w.vriend.snr FROM Wel w WHERE w.aanvrager= :aanvrager")})
-public class Wel implements Serializable {
+    @NamedQuery(name = "Niet.findAll", query = "SELECT n FROM Niet n")
+    , @NamedQuery(name = "Niet.findByNnr", query = "SELECT n FROM Niet n WHERE n.nnr = :nnr")
+    , @NamedQuery(name = "Niet.findEnemy", query = "SELECT n.slachtoffer.snr FROM Niet n WHERE n.hater = :hater")})
+public class Niet implements Serializable {
 
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @Basic(optional = false)
     @NotNull
-    @Column(name = "WNR")
-    private BigDecimal wnr;
-    @JoinColumn(name = "VRIEND", referencedColumnName = "SNR")
+    @Column(name = "NNR")
+    private BigDecimal nnr;
+    @JoinColumn(name = "SLACHTOFFER", referencedColumnName = "SNR")
     @ManyToOne
-    private Studenten vriend;
-    @JoinColumn(name = "AANVRAGER", referencedColumnName = "SNR")
+    private Studenten slachtoffer;
+    @JoinColumn(name = "HATER", referencedColumnName = "SNR")
     @ManyToOne
-    private Studenten aanvrager;
+    private Studenten hater;
 
-    public Wel() {
+    public Niet() {
     }
 
-    public Wel(BigDecimal wnr) {
-        this.wnr = wnr;
+    public Niet(BigDecimal nnr) {
+        this.nnr = nnr;
     }
 
-    public BigDecimal getWnr() {
-        return wnr;
+    public BigDecimal getNnr() {
+        return nnr;
     }
 
-    public void setWnr(BigDecimal wnr) {
-        this.wnr = wnr;
+    public void setNnr(BigDecimal nnr) {
+        this.nnr = nnr;
     }
 
-    public Studenten getVriend() {
-        return vriend;
+    public Studenten getSlachtoffer() {
+        return slachtoffer;
     }
 
-    public void setVriend(Studenten vriend) {
-        this.vriend = vriend;
+    public void setSlachtoffer(Studenten slachtoffer) {
+        this.slachtoffer = slachtoffer;
     }
 
-    public Studenten getAanvrager() {
-        return aanvrager;
+    public Studenten getHater() {
+        return hater;
     }
 
-    public void setAanvrager(Studenten aanvrager) {
-        this.aanvrager = aanvrager;
+    public void setHater(Studenten hater) {
+        this.hater = hater;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (wnr != null ? wnr.hashCode() : 0);
+        hash += (nnr != null ? nnr.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Wel)) {
+        if (!(object instanceof Niet)) {
             return false;
         }
-        Wel other = (Wel) object;
-        if ((this.wnr == null && other.wnr != null) || (this.wnr != null && !this.wnr.equals(other.wnr))) {
+        Niet other = (Niet) object;
+        if ((this.nnr == null && other.nnr != null) || (this.nnr != null && !this.nnr.equals(other.nnr))) {
             return false;
         }
         return true;
@@ -99,7 +99,7 @@ public class Wel implements Serializable {
 
     @Override
     public String toString() {
-        return "Boon.Wel[ wnr=" + wnr + " ]";
+        return "Boon.Niet[ nnr=" + nnr + " ]";
     }
     
 }

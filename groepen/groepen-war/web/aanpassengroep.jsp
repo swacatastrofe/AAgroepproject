@@ -47,6 +47,17 @@
             <input type="hidden" name="groepsnr" value="${requestScope.groepsnr}" />
             <input type="submit" name="Volgende" value="Verwijder de geslecteerde student uit de groep"/>
         </form>
+        <h2> Conflict </h2>
+        <form method="post" action="<c:url value='controller' />" >
+            <select name="verwijderen">
+                <c:forEach var="student" items="${requestScope.vijanden}">
+                    <option value="${student}">${student}</option>
+                </c:forEach>
+            </select>
+            <input type="hidden" name="dtoestand" value="verwijderStudent"/>
+            <input type="hidden" name="groepsnr" value="${requestScope.groepsnr}" />
+            <input type="submit" name="Volgende" value="Verwijder de geslecteerde student uit de groep"/>
+        </form>
         <h2> Finaliseer de samenstelling van de groep</h2>
         <form method="post" action="<c:url value='controller' />" >
             <input type="hidden" name="dtoestand" value="finaliseren"/>

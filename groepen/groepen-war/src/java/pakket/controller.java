@@ -72,10 +72,12 @@ public class controller extends HttpServlet {
                 {
                     List studentenInGroep = dboon.getStudentenInGroep(groepsnr);
                     List studentenZonderGroep = dboon.getStudentenZonderGroep();
-                    List VriendenZonderGroep = dboon.getVrienden(groepsnr);
+                    List vriendenZonderGroep = dboon.getVrienden(groepsnr);
+                    List vijanden = dboon.getVijanden(groepsnr);
                     request.setAttribute("studentenInGroep",studentenInGroep);
                     request.setAttribute("studentenZonderGroep",studentenZonderGroep);
-                    request.setAttribute("vrienden",VriendenZonderGroep);
+                    request.setAttribute("vrienden",vriendenZonderGroep);
+                    request.setAttribute("vijanden",vijanden);
                     request.setAttribute("groepsnr",groepsnr);
                     forward("aanpassengroep.jsp",request,response);
                 }
