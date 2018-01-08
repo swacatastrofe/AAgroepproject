@@ -17,21 +17,26 @@
         <h2>Overzicht van de bestaande groepen</h2>
         <table>
             <tr>
-                <th> Groepsnummer </th>
-                <th> Aanpassen </th>
+                <c:forEach var="groepen" items="${requestScope.groepen}">
+                <td>Groepsnummer: ${groepen}</td>
+                </c:forEach>
             </tr>
-            <c:forEach var="groepen" items="${requestScope.groepen}">
-                <tr>
-                <td>${groepen}</td>
-                <td>
-                    <form method="post" action="<c:url value='controller' />" >
-                        <input type="hidden" name="dtoestand" value="pasGroepAan"/>
-                        <input type="hidden" name="groepsnr" value="${groepen}"/>
-                        <input type="submit" name="Volgende" value="Pas deze groep aan"/>
-                    </form>
-                </td>
-                </tr>
-            </c:forEach>
+            <tr>
+                <c:forEach var="groepen" items="${requestScope.groepen}">
+                    <td>
+                        <form method="post" action="<c:url value='controller' />" >
+                            <input type="hidden" name="dtoestand" value="pasGroepAan"/>
+                            <input type="hidden" name="groepsnr" value="${groepen}"/>
+                            <input type="submit" name="Volgende" value="Pas deze groep aan"/>
+                        </form>
+                    </td>
+                </c:forEach>
+            </tr>
+            <tr>
+                <c:forEach var="conf" items="${requestScope.conflicten}">
+                <td>Aantal conflicten in de groep: ${conf}  </td>
+                </c:forEach>
+            </tr>  
         </table>
         <form method="post" action="<c:url value='controller' />" >
             <input type="hidden" name="dtoestand" value="voegGroepToe"/>
