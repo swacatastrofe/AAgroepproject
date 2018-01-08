@@ -67,12 +67,22 @@ public class controller extends HttpServlet {
             if(dstatus.equals("pasGroepAan"))
             {
                 String groepsnr = request.getParameter("groepsnr");
-                List studentenInGroep = dboon.getStudentenInGroep(groepsnr);
-                List studentenZonderGroep = dboon.getStudentenZonderGroep();
-                request.setAttribute("studentenInGroep",studentenInGroep);
-                request.setAttribute("studentenZonderGroep",studentenZonderGroep);
-                request.setAttribute("groepsnr",groepsnr);
-                forward("aanpassengroep.jsp",request,response);
+                String fin = dboon.isGroepFinaal(groepsnr);
+                if (fin.equals("0"))
+                {
+                    List studentenInGroep = dboon.getStudentenInGroep(groepsnr);
+                    List studentenZonderGroep = dboon.getStudentenZonderGroep();
+                    List VriendenZonderGroep = dboon.getVrienden(groepsnr);
+                    request.setAttribute("studentenInGroep",studentenInGroep);
+                    request.setAttribute("studentenZonderGroep",studentenZonderGroep);
+                    request.setAttribute("vrienden",VriendenZonderGroep);
+                    request.setAttribute("groepsnr",groepsnr);
+                    forward("aanpassengroep.jsp",request,response);
+                }
+                else
+                {
+                    forward("groepfinaal.jsp",request,response);
+                }
             }
             if(dstatus.equals("voegStudentToe"))
             {
@@ -102,6 +112,12 @@ public class controller extends HttpServlet {
             {
                 String groepsnr = request.getParameter("groepsnr");
                 dboon.finaliseerGroep(groepsnr);
+                List groepen = dboon.getGroepen();
+                request.setAttribute("groepen",groepen);
+                forward("docentenoverzicht.jsp",request,response);
+            }
+            if(dstatus.equals("naarDocentenOverzicht"))
+            {
                 List groepen = dboon.getGroepen();
                 request.setAttribute("groepen",groepen);
                 forward("docentenoverzicht.jsp",request,response);

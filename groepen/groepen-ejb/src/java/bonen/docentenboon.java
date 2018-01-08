@@ -59,24 +59,35 @@ public class docentenboon implements docentenboonRemote {
         BigDecimal groep = new BigDecimal(gid);
         Groepen gr =(Groepen) em.createNamedQuery("Groepen.findByGid").setParameter("gid",groep).getSingleResult();
         List nr = em.createNamedQuery("Studenten.findSnrByGid").setParameter("gid",gr).getResultList();
-        List namen = new ArrayList();
-        for (int i=0; i<nr.size() ;i++)
-        {
-            String naam = (String) em.createNamedQuery("Gebruikers.findNamebyGnr").setParameter("gnr",nr.get(i)).getSingleResult();
-            namen.add(naam);
-        }
+        List namen = getNaam(nr);
         return namen;
     }
     
     public List getStudentenZonderGroep(){
         Groepen gr =(Groepen) em.createNamedQuery("Groepen.findByGid").setParameter("gid",new BigDecimal(0)).getSingleResult();
         List nr = em.createNamedQuery("Studenten.findSnrByGid").setParameter("gid",gr).getResultList();
-        List namen = new ArrayList();
+        List namen = getNaam(nr);
+        return namen;
+    }
+    
+    public List getVrienden (String gid)
+    {
+        //Haal studenten op die in de groep zitten
+        BigDecimal groep = new BigDecimal(gid);
+        Groepen gr =(Groepen) em.createNamedQuery("Groepen.findByGid").setParameter("gid",groep).getSingleResult();
+        List nr = em.createNamedQuery("Studenten.findSnrByGid").setParameter("gid",gr).getResultList();
+        //Haal Studenten zonder groep
+        Groepen g =(Groepen) em.createNamedQuery("Groepen.findByGid").setParameter("gid",new BigDecimal(0)).getSingleResult();
+        List n = em.createNamedQuery("Studenten.findSnrByGid").setParameter("gid",g).getResultList();
+        //Haal vrienden van studenten
+        List vrienden = new ArrayList();
         for (int i=0; i<nr.size() ;i++)
         {
-            String naam = (String) em.createNamedQuery("Gebruikers.findNamebyGnr").setParameter("gnr",nr.get(i)).getSingleResult();
-            namen.add(naam);
+            Studenten s = (Studenten) em.createNamedQuery("Studenten.findBySnr").setParameter("snr",nr.get(i)).getSingleResult();
+            List v = em.createNamedQuery("Wel.findFriends").setParameter("aanvrager",s).getResultList();
+            vrienden.add(v);
         }
+        List namen = verwijderHaakjes(vrienden);
         return namen;
     }
     
@@ -86,7 +97,29 @@ public class docentenboon implements docentenboonRemote {
         Groepen gr =(Groepen) em.createNamedQuery("Groepen.findByGid").setParameter("gid",groep).getSingleResult();
         BigDecimal snr = (BigDecimal) em.createNamedQuery("Gebruikers.findGnrByGebnaam").setParameter("gebnaam",naam).getSingleResult();
         Studenten s = (Studenten) em.createNamedQuery("Studenten.findBySnr").setParameter("snr",snr).getSingleResult();
-        s.setGid(gr);
+         s.setGid(gr);
         em.persist(s);
+    }
+    
+    private List getNaam (List in)
+    {
+        List namen = new ArrayList();
+        for (int i=0; i<in.size() ;i++)
+        {
+            String naam = (String) em.createNamedQuery("Gebruikers.findNamebyGnr").setParameter("gnr",in.get(i)).getSingleResult();
+            namen.add(naam);
+        }
+        return namen;
+    }
+    
+    private List verwijderHaakjes (List in)
+    {
+        List out = new ArrayList();
+        for (int i=0; i<in.size() ;i++)
+        {
+            String naam = in.get(i).toString();
+            out.add(naam.substring(1, naam.length()-1));
+        }
+        return out;
     }
 }
