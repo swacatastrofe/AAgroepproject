@@ -10,6 +10,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="css/opmaak.css"/>
         <title>Overzicht</title>
     </head>
     <body>
@@ -38,10 +39,12 @@
                 </c:forEach>
             </tr>  
         </table>
+        <br/>
         <form method="post" action="<c:url value='controller' />" >
             <input type="hidden" name="dtoestand" value="voegGroepToe"/>
             <input type="submit" name="Volgende" value="Voeg een groep toe"/>
         </form>
+        <p>Van de ${requestScope.totaal} studenten, moeten er nog ${requestScope.zonder} studenten toegewezen worden aan een groep</p>
     </body>
     <footer>
         <%@include file="footer.jspf" %>

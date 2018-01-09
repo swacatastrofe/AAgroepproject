@@ -1,6 +1,3 @@
-/*
- * testing
- */
 package pakket;
 
 import bonen.docentenboonRemote;
@@ -48,28 +45,24 @@ public class controller extends HttpServlet {
             {
                 List groepen = dboon.getGroepen();
                 request.setAttribute("groepen",groepen);
-                List aantalConflicten = new ArrayList();
-                for (int i=0; i<groepen.size() ; i++)
-                {
-                    String grnr = groepen.get(i).toString();
-                    List conflicten = dboon.getVijanden(grnr);
-                    aantalConflicten.add(conflicten.size());
-                }
-                request.setAttribute("conflicten", aantalConflicten);
+                List aantalConflicten = dboon.getAantalConlficten();
+                request.setAttribute("conflicten",aantalConflicten);
+                int aantalTot = dboon.getAantalStudenten();
+                request.setAttribute("totaal", aantalTot);
+                int aantalZonder = dboon.getAantalStudentenZonderGroep();
+                request.setAttribute("zonder", aantalZonder);
                 forward("docentenoverzicht.jsp",request,response);
             }
             if(dstatus.equals("naarOverzicht"))
             {
                 List groepen = dboon.getGroepen();
                 request.setAttribute("groepen",groepen);
-                List aantalConflicten = new ArrayList();
-                for (int i=0; i<groepen.size() ; i++)
-                {
-                    String grnr = groepen.get(i).toString();
-                    List conflicten = dboon.getVijanden(grnr);
-                    aantalConflicten.add(conflicten.size());
-                }
-                request.setAttribute("conflicten", aantalConflicten);
+                List aantalConflicten = dboon.getAantalConlficten();
+                request.setAttribute("conflicten",aantalConflicten);
+                int aantalTot = dboon.getAantalStudenten();
+                request.setAttribute("totaal", aantalTot);
+                int aantalZonder = dboon.getAantalStudentenZonderGroep();
+                request.setAttribute("zonder", aantalZonder);
                 forward("docentenoverzicht.jsp",request,response);
             }
             if(dstatus.equals("voegGroepToe"))
@@ -77,6 +70,12 @@ public class controller extends HttpServlet {
                 dboon.voegGroepToe();
                 List groepen = dboon.getGroepen();
                 request.setAttribute("groepen",groepen);
+                List aantalConflicten = dboon.getAantalConlficten();
+                request.setAttribute("conflicten",aantalConflicten);
+                int aantalTot = dboon.getAantalStudenten();
+                request.setAttribute("totaal", aantalTot);
+                int aantalZonder = dboon.getAantalStudentenZonderGroep();
+                request.setAttribute("zonder", aantalZonder);
                 forward("docentenoverzicht.jsp",request,response);
             }
             if(dstatus.equals("pasGroepAan"))
@@ -146,7 +145,15 @@ public class controller extends HttpServlet {
             }
             else
             {
-                forward("index.html",request,response);
+                List groepen = dboon.getGroepen();
+                request.setAttribute("groepen",groepen);
+                List aantalConflicten = dboon.getAantalConlficten();
+                request.setAttribute("conflicten",aantalConflicten);
+                int aantalTot = dboon.getAantalStudenten();
+                request.setAttribute("totaal", aantalTot);
+                int aantalZonder = dboon.getAantalStudentenZonderGroep();
+                request.setAttribute("zonder", aantalZonder);
+                forward("docentenoverzicht.jsp",request,response);
             }
         }
         

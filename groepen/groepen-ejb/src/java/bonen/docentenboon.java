@@ -62,12 +62,26 @@ public class docentenboon implements docentenboonRemote {
         List namen = getNaam(nr);
         return namen;
     }
-    
+        
     public List getStudentenZonderGroep(){
         Groepen gr =(Groepen) em.createNamedQuery("Groepen.findByGid").setParameter("gid",new BigDecimal(0)).getSingleResult();
         List nr = em.createNamedQuery("Studenten.findSnrByGid").setParameter("gid",gr).getResultList();
         List namen = getNaam(nr);
         return namen;
+    }
+    
+    public int getAantalStudenten ()
+    {
+        List studenten = em.createNamedQuery("Studenten.findAll").getResultList();
+        int aantal = studenten.size();
+        return aantal;
+    }
+    
+    public int getAantalStudentenZonderGroep()
+    {
+        List studenten = getStudentenZonderGroep();
+        int aantal = studenten.size();
+        return aantal;
     }
     
     public List getVrienden (String gid)
@@ -135,6 +149,19 @@ public class docentenboon implements docentenboonRemote {
             }
         }
         return res;
+    }
+    
+    public List getAantalConlficten ()
+    {
+        List aantalConflicten = new ArrayList();
+        List groepen = getGroepen();
+        for (int i=0; i<groepen.size() ; i++)
+        {
+            String grnr = groepen.get(i).toString();
+            List conflicten = getVijanden(grnr);
+            aantalConflicten.add(conflicten.size());
+        }
+        return aantalConflicten;
     }
     
     public void voegStudentToeAanGroep(String gid, String naam)
