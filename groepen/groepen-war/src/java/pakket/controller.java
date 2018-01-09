@@ -30,12 +30,24 @@ public class controller extends HttpServlet {
                 
         if(request.isUserInRole("student"))
         {
-            switch(request.getParameter("oorsprong")){
+            String oorsprong = request.getParameter("oorsprong");
+            if (oorsprong == null)
+            {
+                String name = request.getUserPrincipal().getName();
+                List vrienden = dboon.getVriendenVanStudent(name);
+                request.setAttribute("vrienden", vrienden);
+                List vijanden = dboon.getVijandenVanStudent(name);
+                request.setAttribute("vijanden",vijanden);
+                forward("studentenwelkom.jsp",request,response);
+            }
+            else {
+            switch(oorsprong){
             case("making friends"): makeFriend(request,response);
             case("making enemies"): makeEnemy(request,response);
             case("logout"):
                 sessie.invalidate();
                 forward("login.jsp",request,response);
+            }
             }
         }
         else
