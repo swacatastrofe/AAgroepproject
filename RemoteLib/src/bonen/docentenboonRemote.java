@@ -20,6 +20,8 @@ public interface docentenboonRemote {
     public String isGroepFinaal (String nr);
     public List getStudentenInGroep(String gid);
     public List getStudentenZonderGroep();
+    public int getAantalStudenten ();
+    public int getAantalStudentenZonderGroep ();
     public List getVrienden (String gid);
     public List getVijanden (String gid);
     public List getAantalConlficten ();
