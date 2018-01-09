@@ -22,5 +22,6 @@ public interface docentenboonRemote {
     public List getStudentenZonderGroep();
     public List getVrienden (String gid);
     public List getVijanden (String gid);
+    public List getAantalConlficten ();
     public void voegStudentToeAanGroep(String gid, String naam);
 }
