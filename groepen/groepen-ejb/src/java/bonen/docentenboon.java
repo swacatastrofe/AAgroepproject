@@ -137,6 +137,19 @@ public class docentenboon implements docentenboonRemote {
         return res;
     }
     
+    public List getAantalConlficten ()
+    {
+        List aantalConflicten = new ArrayList();
+        List groepen = getGroepen();
+        for (int i=0; i<groepen.size() ; i++)
+        {
+            String grnr = groepen.get(i).toString();
+            List conflicten = getVijanden(grnr);
+            aantalConflicten.add(conflicten.size());
+        }
+        return aantalConflicten;
+    }
+    
     public void voegStudentToeAanGroep(String gid, String naam)
     {
         BigDecimal groep = new BigDecimal(gid);
