@@ -1,6 +1,3 @@
-/*
- * testing
- */
 package pakket;
 
 import bonen.docentenboonRemote;
@@ -48,28 +45,12 @@ public class controller extends HttpServlet {
             {
                 List groepen = dboon.getGroepen();
                 request.setAttribute("groepen",groepen);
-                List aantalConflicten = new ArrayList();
-                for (int i=0; i<groepen.size() ; i++)
-                {
-                    String grnr = groepen.get(i).toString();
-                    List conflicten = dboon.getVijanden(grnr);
-                    aantalConflicten.add(conflicten.size());
-                }
-                request.setAttribute("conflicten", aantalConflicten);
                 forward("docentenoverzicht.jsp",request,response);
             }
             if(dstatus.equals("naarOverzicht"))
             {
                 List groepen = dboon.getGroepen();
                 request.setAttribute("groepen",groepen);
-                List aantalConflicten = new ArrayList();
-                for (int i=0; i<groepen.size() ; i++)
-                {
-                    String grnr = groepen.get(i).toString();
-                    List conflicten = dboon.getVijanden(grnr);
-                    aantalConflicten.add(conflicten.size());
-                }
-                request.setAttribute("conflicten", aantalConflicten);
                 forward("docentenoverzicht.jsp",request,response);
             }
             if(dstatus.equals("voegGroepToe"))
