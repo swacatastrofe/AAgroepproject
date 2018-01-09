@@ -53,6 +53,10 @@ public class controller extends HttpServlet {
                 request.setAttribute("groepen",groepen);
                 List aantalConflicten = dboon.getAantalConlficten();
                 request.setAttribute("conflicten",aantalConflicten);
+                int aantalTot = dboon.getAantalStudenten();
+                request.setAttribute("totaal", aantalTot);
+                int aantalZonder = dboon.getAantalStudentenZonderGroep();
+                request.setAttribute("zonder", aantalZonder);
                 forward("docentenoverzicht.jsp",request,response);
             }
             if(dstatus.equals("voegGroepToe"))
@@ -60,6 +64,12 @@ public class controller extends HttpServlet {
                 dboon.voegGroepToe();
                 List groepen = dboon.getGroepen();
                 request.setAttribute("groepen",groepen);
+                List aantalConflicten = dboon.getAantalConlficten();
+                request.setAttribute("conflicten",aantalConflicten);
+                int aantalTot = dboon.getAantalStudenten();
+                request.setAttribute("totaal", aantalTot);
+                int aantalZonder = dboon.getAantalStudentenZonderGroep();
+                request.setAttribute("zonder", aantalZonder);
                 forward("docentenoverzicht.jsp",request,response);
             }
             if(dstatus.equals("pasGroepAan"))
