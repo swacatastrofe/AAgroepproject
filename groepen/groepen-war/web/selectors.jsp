@@ -9,9 +9,13 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="css/opmaak.css"/>
         <title>student selector</title>
     </head>
     <body>
         <h1>ah, dus u wilt een ${sessionScope.reden} maken</h1>
     </body>
+    <footer>
+        <%@include file="footer.jspf" %>
+    </footer>
 </html>
