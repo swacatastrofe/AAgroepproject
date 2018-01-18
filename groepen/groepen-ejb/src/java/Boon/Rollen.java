@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Rollen.findAll", query = "SELECT r FROM Rollen r")
-    , @NamedQuery(name = "Rollen.findByGnr", query = "SELECT r FROM Rollen r WHERE r.gnr = :gnr")
+    , @NamedQuery(name = "Rollen.findByRid", query = "SELECT r FROM Rollen r WHERE r.rid = :rid")
     , @NamedQuery(name = "Rollen.findByRnaam", query = "SELECT r FROM Rollen r WHERE r.rnaam = :rnaam")})
 public class Rollen implements Serializable {
 
@@ -38,12 +38,12 @@ public class Rollen implements Serializable {
     @Id
     @Basic(optional = false)
     @NotNull
-    @Column(name = "GNR")
-    private BigDecimal gnr;
+    @Column(name = "RID")
+    private BigDecimal rid;
     @Size(max = 20)
     @Column(name = "RNAAM")
     private String rnaam;
-    @JoinColumn(name = "GNR", referencedColumnName = "GNR", insertable = false, updatable = false)
+    @JoinColumn(name = "RID", referencedColumnName = "GNR", insertable = false, updatable = false)
     @OneToOne(optional = false)
     private Gebruikers gebruikers;
 
@@ -51,15 +51,15 @@ public class Rollen implements Serializable {
     }
 
     public Rollen(BigDecimal rid) {
-        this.gnr = rid;
+        this.rid = rid;
     }
 
-    public BigDecimal getGnr() {
-        return gnr;
+    public BigDecimal getRid() {
+        return rid;
     }
 
-    public void setGnr(BigDecimal rid) {
-        this.gnr = rid;
+    public void setRid(BigDecimal rid) {
+        this.rid = rid;
     }
 
     public String getRnaam() {
@@ -81,7 +81,7 @@ public class Rollen implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (gnr != null ? gnr.hashCode() : 0);
+        hash += (rid != null ? rid.hashCode() : 0);
         return hash;
     }
 
@@ -92,7 +92,7 @@ public class Rollen implements Serializable {
             return false;
         }
         Rollen other = (Rollen) object;
-        if ((this.gnr == null && other.gnr != null) || (this.gnr != null && !this.gnr.equals(other.gnr))) {
+        if ((this.rid == null && other.rid != null) || (this.rid != null && !this.rid.equals(other.rid))) {
             return false;
         }
         return true;
@@ -100,7 +100,7 @@ public class Rollen implements Serializable {
 
     @Override
     public String toString() {
-        return "Boon.Rollen[ gnr=" + gnr + " ]";
+        return "Boon.Rollen[ rid=" + rid + " ]";
     }
     
 }
