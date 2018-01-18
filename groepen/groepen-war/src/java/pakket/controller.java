@@ -47,6 +47,24 @@ public class controller extends HttpServlet {
             case("logout"):
                 sessie.invalidate();
                 forward("login.jsp",request,response);
+/**
+            try{
+                switch(request.getParameter("oorsprong")){
+                    case("making friends"): 
+                        makeFriend(request,response);
+                        break;
+                    case("making enemies"): 
+                        makeEnemy(request,response);
+                        break;
+                    case("logout"):
+                        sessie.invalidate();
+                        forward("login.jsp",request,response);
+                        break;
+                }
+            }
+            catch(NullPointerException e){
+                onthaal(request,response);
+**/
             }
             }
         }
@@ -225,6 +243,10 @@ public class controller extends HttpServlet {
         HttpSession sessie = request.getSession();
         sessie.setAttribute("reden", request.getParameter("vijand"));
         forward("selector.jsp",request,response);
+    }
+
+    private void onthaal(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        forward("studentenwelkom.jsp",request,response);
     }
 
 }

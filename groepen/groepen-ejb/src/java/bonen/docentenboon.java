@@ -209,4 +209,16 @@ public class docentenboon implements docentenboonRemote {
             return false;
         }
     }
+
+    @Override
+    public List getStudents() {
+        List studenten = em.createNamedQuery("Gebruikers.getNamesStud").getResultList();
+        return studenten;
+    }
+
+    @Override
+    public List getStudents(String frag) {
+        List studenten = em.createNamedQuery("Gebruikers.findName").setParameter("naamfrag",frag).getResultList();
+        return studenten;
+    }
 }
