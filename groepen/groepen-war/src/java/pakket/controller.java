@@ -30,24 +30,6 @@ public class controller extends HttpServlet {
                 
         if(request.isUserInRole("student"))
         {
-            String oorsprong = request.getParameter("oorsprong");
-            if (oorsprong == null)
-            {
-                String name = request.getUserPrincipal().getName();
-                List vrienden = dboon.getVriendenVanStudent(name);
-                request.setAttribute("vrienden", vrienden);
-                List vijanden = dboon.getVijandenVanStudent(name);
-                request.setAttribute("vijanden",vijanden);
-                forward("studentenwelkom.jsp",request,response);
-            }
-            else {
-            switch(oorsprong){
-            case("making friends"): makeFriend(request,response);
-            case("making enemies"): makeEnemy(request,response);
-            case("logout"):
-                sessie.invalidate();
-                forward("login.jsp",request,response);
-/**
             try{
                 switch(request.getParameter("oorsprong")){
                     case("making friends"): 
@@ -64,8 +46,6 @@ public class controller extends HttpServlet {
             }
             catch(NullPointerException e){
                 onthaal(request,response);
-**/
-            }
             }
         }
         else
