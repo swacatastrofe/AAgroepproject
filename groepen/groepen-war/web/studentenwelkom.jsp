@@ -9,7 +9,6 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" type="text/css" href="css/opmaak.css"/>
         <title>student home</title>
     </head>
     <body>
@@ -27,7 +26,4 @@
                 <input type="hidden" name="oorsprong"  value="making enemies"/>
             </form>
     </body>
-    <footer>
-        <%@include file="footer.jspf" %>
-    </footer>
 </html>

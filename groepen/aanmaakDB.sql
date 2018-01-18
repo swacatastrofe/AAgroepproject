@@ -44,20 +44,16 @@ CREATE TABLE studenten (
     FOREIGN KEY (gid) REFERENCES groepen (gid)
 );
 
-CREATE TABLE wel (
-    wnr int,
+CREATE TABLE niet (
     aanvrager int,
     vriend int,
-    PRIMARY KEY (wnr),
     FOREIGN KEY (aanvrager) REFERENCES studenten (snr),
     FOREIGN KEY (vriend) REFERENCES studenten (snr)
 );
 
-CREATE TABLE niet (
-    nnr int,
+CREATE TABLE wel (
     hater int,
     slachtoffer int,
-    PRIMARY KEY (nnr),
     FOREIGN KEY (hater) REFERENCES studenten (snr),
     FOREIGN KEY (slachtoffer) REFERENCES studenten (snr)
 );
@@ -72,8 +68,6 @@ INSERT INTO rollen VALUES(3, 'student');
 INSERT INTO rollen VALUES(4, 'student');
 INSERT INTO groepen  VALUES (0, 'null',0);
 INSERT INTO groepen VALUES (1, 'groep1',0);
-INSERT INTO studenten VALUES (2,1);
+INSERT INTO studenten VALUES (2,0);
 INSERT INTO studenten VALUES (3,0);
 INSERT INTO studenten VALUES (4,0);
-INSERT INTO wel VALUES(1,2,4);
-INSERT INTO Niet VALUES(1,4,2);

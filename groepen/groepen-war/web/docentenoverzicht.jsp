@@ -10,7 +10,6 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" type="text/css" href="css/opmaak.css"/>
         <title>Overzicht</title>
     </head>
     <body>
@@ -18,35 +17,23 @@
         <h2>Overzicht van de bestaande groepen</h2>
         <table>
             <tr>
-                <c:forEach var="groepen" items="${requestScope.groepen}">
-                <td>Groepsnummer: ${groepen}</td>
-                </c:forEach>
+                <th> Groepsnaam </th>
+                <th> Aanpassen </th>
             </tr>
-            <tr>
-                <c:forEach var="groepen" items="${requestScope.groepen}">
-                    <td>
-                        <form method="post" action="<c:url value='controller' />" >
-                            <input type="hidden" name="dtoestand" value="pasGroepAan"/>
-                            <input type="hidden" name="groepsnr" value="${groepen}"/>
-                            <input type="submit" name="Volgende" value="Pas deze groep aan"/>
-                        </form>
-                    </td>
-                </c:forEach>
-            </tr>
-            <tr>
-                <c:forEach var="conf" items="${requestScope.conflicten}">
-                <td>Aantal conflicten in de groep: ${conf}  </td>
-                </c:forEach>
-            </tr>  
+            <c:forEach var="groepen" items="${requestScope.groepen}">
+                <td>${groepen}</td>
+                <td>
+                    <form method="post" action="<c:url value='controller.do' />" >
+                        <input type="hidden" name="dtoestand" value="pasGroepAan"/>
+                        <input type="hidden" name="groepsnr" value="${groepen}"/>
+                        <input type="submit" name="Volgende" value="Pas deze groep aan"/>
+                    </form>
+                </td>
+            </c:forEach>
         </table>
-        <br/>
-        <form method="post" action="<c:url value='controller' />" >
+        <form method="post" action="<c:url value='controller.do' />" >
             <input type="hidden" name="dtoestand" value="voegGroepToe"/>
             <input type="submit" name="Volgende" value="Voeg een groep toe"/>
         </form>
-        <p>Van de ${requestScope.totaal} studenten, moeten er nog ${requestScope.zonder} studenten toegewezen worden aan een groep</p>
     </body>
-    <footer>
-        <%@include file="footer.jspf" %>
-    </footer>
 </html>
